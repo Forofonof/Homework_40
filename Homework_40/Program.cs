@@ -24,7 +24,7 @@ internal class Program
             switch (userInput) 
             {
                 case TakeCard:
-                    player.GetCard(deck);
+                    player.TakeCard(deck);
                     break;
                 case ShowAllCards:
                     player.ShowCard();
@@ -48,11 +48,11 @@ class Player
     {
         for (int i = 0; i < _hand.Count; i++)
         {
-            Console.WriteLine($"Карта: {_hand[i].NameCard}. Уровень карты: {_hand[i].LevelCard}");
+            Console.WriteLine($"Карта: {_hand[i].Name}. Уровень карты: {_hand[i].Level}");
         }
     }
 
-    public void GetCard(Deck deck)
+    public void TakeCard(Deck deck)
     {
         if (deck.TryGetCard(out Card card))
         {
@@ -69,27 +69,30 @@ class Player
 
 class Card
 {
-    public string NameCard { get; private set; }
+    public string Name { get; private set; }
 
-    public int LevelCard { get; private set; }
+    public int Level { get; private set; }
 
-    public Card(string nameCard, int levelCard)
+    public Card(string name, int level)
     {
-        NameCard = nameCard;
-        LevelCard = levelCard;
+        Name = name;
+        Level = level;
     }
 }
 
 class Deck
 {
     private List<Card> _cards = new List<Card>();
+    private Random _random = new Random();
 
     public Deck()
     {
-        _cards.Add(new Card("Обычная карта", 5));
-        _cards.Add(new Card("Редкая карта", 10));
-        _cards.Add(new Card("Эпическая карта", 15));
-        _cards.Add(new Card("Легендарная карта", 25));
+        int maximumCards = 4;
+
+        for (int i = 0; i < maximumCards; i++)
+        {
+            _cards.Add(new Card("Обычная", GetPowerCard()));
+        }
     }
 
     public bool TryGetCard(out Card card)
@@ -106,5 +109,14 @@ class Deck
             card = null;
             return false;
         }
+    }
+
+    private int GetPowerCard()
+    {
+        int maximumPowerCard = 15;
+        int minimumPowerCard = 5;
+        int powerCard = _random.Next(minimumPowerCard, maximumPowerCard);
+
+        return powerCard;
     }
 }
