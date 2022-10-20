@@ -54,7 +54,7 @@ class Player
 
     public void TakeCard(Deck deck)
     {
-        if (deck.TryGetCard(out Card card))
+        if (deck.TryTakeCard(out Card card))
         {
             _hand.Add(card);
             Console.WriteLine("Ваши карты");
@@ -95,7 +95,7 @@ class Deck
         }
     }
 
-    public bool TryGetCard(out Card card)
+    public bool TryTakeCard(out Card card)
     {
         if (_cards.Count > 0)
         {
