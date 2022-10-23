@@ -5,9 +5,9 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        const string TakeCard = "1";
-        const string ShowAllCards = "2";
-        const string DoExit = "3";
+        const string CommandTakeCard = "1";
+        const string CommandShowAllCards = "2";
+        const string CommandExit = "3";
 
         Player player = new Player();
         Deck deck = new Deck();
@@ -18,18 +18,18 @@ internal class Program
 
         while (isWork)
         {
-            Console.WriteLine($"{TakeCard} - Взять карту.\n{ShowAllCards} - Показать все карты.\n{DoExit} - Закрыть программу.\n");
+            Console.WriteLine($"{CommandTakeCard} - Взять карту.\n{CommandShowAllCards} - Показать все карты.\n{CommandExit} - Закрыть программу.\n");
             string userInput = Console.ReadLine();
 
             switch (userInput) 
             {
-                case TakeCard:
+                case CommandTakeCard:
                     player.TakeCard(deck);
                     break;
-                case ShowAllCards:
+                case CommandShowAllCards:
                     player.ShowCard();
                     break;
-                case DoExit:
+                case CommandExit:
                     isWork = false;
                     break;
                 default:
